@@ -15,7 +15,6 @@ require_relative '../model/sheet'
 class MainController < Controller
 
 	helper :upload
-#	handle_uploads_for :index
 	upload_options :allow_overwrite => true,
 								 :autosave => true,
 								 :default_upload_dir => File.save_path,
