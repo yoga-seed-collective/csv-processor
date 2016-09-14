@@ -3,8 +3,11 @@ require 'csv'
 require_relative 'file'
 
 class Sheet
+	attr_accessor :html
+	attr_accessor :hash
 
-	def content=(content)
+	def sort_by(key)
+		
 	end
 
 	def self.read(filename)
@@ -14,7 +17,9 @@ class Sheet
 				csv_rows << row.to_h
 		end
 		sheet = Sheet.new
-		sheet.content = Sheet.hasharray_to_html(csv_rows)
+		sheet.hash = csv_rows
+		sheet.html = Sheet.hasharray_to_html(csv_rows)
+		sheet
 	end
 
 	def self.hasharray_to_html( hashArray )
