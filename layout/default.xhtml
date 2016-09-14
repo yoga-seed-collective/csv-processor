@@ -9,18 +9,17 @@
         #{css('grid')}
         #{css('layout')}
         #{css('text')}
-        #{css('tables')}
     </head>
     <body>
         <div class="container">
             <div id="container" class="row">
                 <!-- Top part, contains the navigation menu -->
-                <div id="top" class="grid_15">
-                    <header class="grid_8">
+                <div id="top" class="grid_12">
+                    <header class="grid_6">
                         <h1>#{@title}</h1>
                     </header> 
 
-                    <nav class="grid_4 last">
+                    <nav class="grid_6 last">
                         <ul class="clearfix">
                             <li>
                                 <a href="http://ramaze.net/">Website</a>
@@ -30,20 +29,28 @@
                                     Documentation
                                 </a>
                             </li>
+                            <li>
+                                <a href="https://groups.google.com/forum/#!forum/ramaze">
+                                    Mailing List
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
 
-                <div id="content" class="grid_15">
+                <div id="content" class="grid_12">
                     #{@content}
                 </div>
             </div>
 
             <footer id="footer">
                 <p>
-                    CSV Processor is free software and is licensed under the MIT license.<br />
+                    Ramaze is free software and is licensed under the MIT license.<br />
+                    All textual content is licensed under a 
+                    <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+                        Creative Commons license.
+                    </a>
                 </p>
-								<p> Written by Don Durrance for The Yoga Seed Collective</p>
             </footer>
         </div>
     </body>
