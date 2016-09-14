@@ -21,6 +21,15 @@ class Sheet
 		Sheet.hasharray_to_html(self.hash)
 	end
 
+	def csv
+		csv = String.new
+		csv << self.keys.to_csv
+		self.hash.each do |hash|
+			csv << hash.values.to_csv
+		end
+		csv
+	end
+
 	def self.read(filename)
 		Ramaze::Log.info("#{File.save_path}#{filename}")
 				csv_rows = []

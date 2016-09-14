@@ -31,7 +31,8 @@ class MainController < Controller
 			Ramaze::Log.info("Received uploaded file named #{k} with values #{v.inspect}")
 			@sheet = Sheet.read(v.filename)
 			# "Item name" is "pricing option"
-			@sheet.sort_by!('Item name');
+			@sheet.sort_by!('Item name')
+			Ramaze::Log.info(@sheet.csv)
 		end
 	end
 
