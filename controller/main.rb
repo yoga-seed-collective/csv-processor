@@ -32,7 +32,7 @@ class MainController < Controller
     @title = 'Welcome to CSV Processor'
 		get_uploaded_files.each_pair do |k, v|
 			Ramaze::Log.info("Received uploaded file named #{k} with values #{v.inspect}")
-			@csv_rows = Sheet.read(v.filename)
+			@sheet = Sheet.read(v.filename)
 		end
 	end
 
