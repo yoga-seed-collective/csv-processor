@@ -1,4 +1,3 @@
-require "csv"
 require 'shellwords'
 require_relative '../model/file'
 require_relative '../model/sheet'
