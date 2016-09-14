@@ -27,5 +27,15 @@ class Sheet
  	 return html
 	end
 
+	def self.hasharray_to_csv(hashArray)
+		column_names = hashArray.first.keys
+			s=CSV.generate do |csv|
+			csv << column_names
+			hashes.each do |x|
+				csv << x.values
+			end
+		end
+	end
+
 end
 

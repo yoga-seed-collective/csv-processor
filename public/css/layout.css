@@ -6,16 +6,15 @@
  */
 #container
 {
-    margin:  20px auto;
-    width:   940px;
+    margin:  10px auto;
+    width:   1066px;
 }
 
 #content
 {
     background:    #fff;
     border:        1px solid #ddd;
-    padding:       20px;
-    width:         898px;
+    padding:       10px;
 }
 
 /* Top part of the website, contains the title and the navigation menu */
