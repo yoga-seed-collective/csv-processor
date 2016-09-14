@@ -23,7 +23,6 @@ class MainController < Controller
   # the index action is called automatically when no other action is specified
   def index
     @title = 'Welcome to CSV Processor!'
-
   end
 
 	def show
@@ -31,6 +30,8 @@ class MainController < Controller
 		get_uploaded_files.each_pair do |k, v|
 			Ramaze::Log.info("Received uploaded file named #{k} with values #{v.inspect}")
 			@sheet = Sheet.read(v.filename)
+			# "Item name" is "pricing option"
+			@sheet.sort_by!('Item name');
 		end
 	end
 

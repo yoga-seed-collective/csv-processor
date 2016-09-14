@@ -6,7 +6,11 @@ class Sheet
 	attr_accessor :hash
 
 	def sort_by(key)
-		
+		self.hash.sort_by{ |row| row[key] }
+	end
+
+	def sort_by!(key)
+		self.hash = self.sort_by(key)
 	end
 
 	def keys
