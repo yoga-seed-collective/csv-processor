@@ -17,7 +17,7 @@ class MainController < Controller
 	helper :upload
 	upload_options :allow_overwrite => true,
 								 :autosave => true,
-								 :default_upload_dir => File.save_path,
+								 :default_upload_dir => File.upload_path,
 								 :unlink_tempfile => true 
 
   # the index action is called automatically when no other action is specified

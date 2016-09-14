@@ -1,5 +1,9 @@
-<p><code>
+<p>
+Here are your files:
+</p>
 
-#{@filenames.inspect}
+<?r @filenames.each do |file| ?>
+<p />
+	<a href="#{File.save_path}#{file}">#{file}</a>
+<?r end ?>
 
-</code></p>
