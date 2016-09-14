@@ -7,7 +7,7 @@
 #container
 {
     margin:  20px auto;
-    width:   960px;
+    width:   940px;
 }
 
 #content
@@ -15,6 +15,7 @@
     background:    #fff;
     border:        1px solid #ddd;
     padding:       20px;
+    width:         898px;
 }
 
 /* Top part of the website, contains the title and the navigation menu */
