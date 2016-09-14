@@ -1,6 +1,7 @@
 require "csv"
 require 'shellwords'
 require_relative '../model/file'
+require_relative '../model/sheet'
 
 # Default url mappings are:
 # 
@@ -31,11 +32,7 @@ class MainController < Controller
     @title = 'Welcome to CSV Processor'
 		get_uploaded_files.each_pair do |k, v|
 			Ramaze::Log.info("Received uploaded file named #{k} with values #{v.inspect}")
-			@csv_array = CSV.read("#{File.save_path}#{v.filename}") 
-			@csv_rows = []
-			CSV.foreach("#{File.save_path}#{v.filename}", headers: true) do |row|
-			  @csv_rows << row.to_h
-			end
+			@csv_rows = Sheet.read(v.filename)
 		end
 	end
 
