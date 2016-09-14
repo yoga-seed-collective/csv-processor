@@ -9,6 +9,10 @@ class Sheet
 		
 	end
 
+	def keys
+		self.hash.first.keys
+	end
+
 	def html
 		Sheet.hasharray_to_html(self.hash)
 	end
