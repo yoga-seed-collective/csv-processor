@@ -4,6 +4,8 @@ require_relative 'file'
 
 class Sheet
 	attr_accessor :hash
+	attr_accessor :orig_filename
+	attr_accessor :filename
 
 	def sort_by(key)
 		self.hash.sort_by{ |row| row[key] }
@@ -11,6 +13,7 @@ class Sheet
 
 	def sort_by!(key)
 		self.hash = self.sort_by(key)
+		self.filename = "#{self.orig_filename.chomp(".csv")}_sortby_#{key}.csv"
 	end
 
 	def keys
@@ -38,6 +41,8 @@ class Sheet
 		end
 		sheet = Sheet.new
 		sheet.hash = csv_rows
+		sheet.orig_filename = filename;
+		sheet.filename = filename;
 		sheet
 	end
 
@@ -64,6 +69,10 @@ class Sheet
 			end
 		end
 	 output	
+	end
+
+	def save
+		File.open("#{File.save_path}#{self.filename}", 'w') { |file| file.write(self.csv) }
 	end
 
 end

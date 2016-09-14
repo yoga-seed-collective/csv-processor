@@ -28,11 +28,17 @@ class MainController < Controller
 	def show
     @title = 'Welcome to CSV Processor'
 		get_uploaded_files.each_pair do |k, v|
+			@filenames = Array.new
 			Ramaze::Log.info("Received uploaded file named #{k} with values #{v.inspect}")
 			@sheet = Sheet.read(v.filename)
 			# "Item name" is "pricing option"
 			@sheet.sort_by!('Item name')
 			Ramaze::Log.info(@sheet.csv)
+			@filenames << @sheet.filename
+			@sheet.save
+			@sheet.sort_by!('Sale Date')
+			@filenames << @sheet.filename
+			@sheet.save
 		end
 	end
 
