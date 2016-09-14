@@ -4,13 +4,17 @@ require_relative 'file'
 
 class Sheet
 
+	def content=(content)
+	end
+
 	def self.read(filename)
 		Ramaze::Log.info("#{File.save_path}#{filename}")
 				csv_rows = []
 		CSV.foreach("#{File.save_path}#{filename}", headers: true) do |row|
 				csv_rows << row.to_h
 		end
-		Sheet.hasharray_to_html(csv_rows)
+		sheet = Sheet.new
+		sheet.content = Sheet.hasharray_to_html(csv_rows)
 	end
 
 	def self.hasharray_to_html( hashArray )
@@ -29,12 +33,13 @@ class Sheet
 
 	def self.hasharray_to_csv(hashArray)
 		column_names = hashArray.first.keys
-			s=CSV.generate do |csv|
+			output=CSV.generate do |csv|
 			csv << column_names
 			hashes.each do |x|
 				csv << x.values
 			end
 		end
+	 output	
 	end
 
 end

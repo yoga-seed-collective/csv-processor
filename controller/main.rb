@@ -35,6 +35,14 @@ class MainController < Controller
 		end
 	end
 
+	def process
+ 	  @title = 'Welcome to CSV Processor'
+		get_uploaded_files.each_pair do |k, v|
+			Ramaze::Log.info("Received uploaded file named #{k} with values #{v.inspect}")
+			@sheet = Sheet.read(v.filename)
+		end
+	end
+
   # the string returned at the end of the function is used as the html body
   # if there is no template for the action. if there is a template, the string
   # is silently ignored
