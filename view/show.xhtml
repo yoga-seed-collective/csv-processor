@@ -2,8 +2,7 @@
 Here are your files:
 </p>
 
-<?r @filenames.each do |file| ?>
 <p />
-	<a href="#{File.save_path}#{file}">#{file}</a>
-<?r end ?>
+	<a href="csvs/#{@filenames[0]}">By Pricing Option</a>
+	<a href="csvs/#{@filenames[1]}">By Sale Date</a>
 
