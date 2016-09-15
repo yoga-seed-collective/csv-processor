@@ -3,43 +3,47 @@ require 'csv'
 require_relative 'file'
 
 class Sheet
-	attr_accessor :hash
+	attr_accessor :hasharray
 	attr_accessor :orig_filename
 	attr_accessor :filename
 
 	def sort_by(key)
-		self.hash.sort_by{ |row| row[key] }
+		self.hasharray.sort_by{ |row| row[key] }
+	end
+
+	def daily_totals
+		
 	end
 
 	def sort_by!(key)
-		self.hash = self.sort_by(key)
+		self.hasharray = self.sort_by(key)
 		self.filename = "#{self.orig_filename.chomp(".csv")}_by_#{key}.csv"
 	end
 
 	def sort_by_date_and(key)
-		self.hash.sort{ |a, b| [DateTime.strptime(a["Sale Date"], '%m/%d/%Y'), b[key]] <=> [DateTime.strptime(b["Sale Date"], '%m/%d/%Y'), a[key]] }
-#		self.hash = self.sort_by(key)
-#		array = self.hash.sort_by{ |row| row["Sale Date"] }
+		self.hasharray.sort{ |a, b| [DateTime.strptime(a["Sale Date"], '%m/%d/%Y'), b[key]] <=> [DateTime.strptime(b["Sale Date"], '%m/%d/%Y'), a[key]] }
+#		self.hasharray = self.sort_by(key)
+#		array = self.hasharray.sort_by{ |row| row["Sale Date"] }
 	end
 
 	def sort_by_date_and!(key)
-		self.hash = self.sort_by_date_and(key)
+		self.hasharray = self.sort_by_date_and(key)
 		self.filename = "#{self.orig_filename.chomp(".csv")}_bydateand_#{key}.csv"
 	end
 
 	def keys
-		self.hash.first.keys
+		self.hasharray.first.keys
 	end
 
 	def html
-		Sheet.hasharray_to_html(self.hash)
+		Sheet.hasharrayarray_to_html(self.hasharray)
 	end
 
 	def csv
 		csv = String.new
 		csv << self.keys.to_csv
-		self.hash.each do |hash|
-			csv << hash.values.to_csv
+		self.hasharray.each do |hasharray|
+			csv << hasharray.values.to_csv
 		end
 		csv
 	end
@@ -50,7 +54,7 @@ class Sheet
 				csv_rows << row.to_h
 		end
 		sheet = Sheet.new
-		sheet.hash = csv_rows
+		sheet.hasharray = csv_rows
 		sheet.orig_filename = filename;
 		sheet.filename = filename;
 		sheet
