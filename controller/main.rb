@@ -31,7 +31,7 @@ class MainController < Controller
 			@filenames = Array.new
 			@sheet = Sheet.read(v.filename)
 			# "Item name" is "pricing option"
-			@sheet.sort_by!('Item name')
+			@sheet.sort_by_date_and!('Item name')
 			@filenames << @sheet.filename
 			@sheet.save
 			@sheet.sort_by!('Sale Date')

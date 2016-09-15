@@ -13,7 +13,18 @@ class Sheet
 
 	def sort_by!(key)
 		self.hash = self.sort_by(key)
-		self.filename = "#{self.orig_filename.chomp(".csv")}_sortby_#{key}.csv"
+		self.filename = "#{self.orig_filename.chomp(".csv")}_by_#{key}.csv"
+	end
+
+	def sort_by_date_and(key)
+		self.hash.sort{ |a, b| [DateTime.strptime(a["Sale Date"], '%m/%d/%Y'), b[key]] <=> [DateTime.strptime(b["Sale Date"], '%m/%d/%Y'), a[key]] }
+#		self.hash = self.sort_by(key)
+#		array = self.hash.sort_by{ |row| row["Sale Date"] }
+	end
+
+	def sort_by_date_and!(key)
+		self.hash = self.sort_by_date_and(key)
+		self.filename = "#{self.orig_filename.chomp(".csv")}_bydateand_#{key}.csv"
 	end
 
 	def keys
