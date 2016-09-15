@@ -34,9 +34,6 @@ class MainController < Controller
 			@sheet.sort_by_date_and!('Item name')
 			@filenames << @sheet.filename
 			@sheet.save
-			@sheet.sort_by!('Sale Date')
-			@filenames << @sheet.filename
-			@sheet.save
 		end
 	end
 
