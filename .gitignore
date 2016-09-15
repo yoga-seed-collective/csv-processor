@@ -1,3 +1,4 @@
 uploads
 *.bak
 *.swp
+public/csvs
