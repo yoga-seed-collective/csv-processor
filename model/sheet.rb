@@ -11,8 +11,14 @@ class Sheet
 		self.hasharray.sort_by{ |row| row[key] }
 	end
 
-	def daily_totals
-		
+	def get_total(key)
+	end
+
+	# returns a hash with totals per day
+	def daily_totals(key)
+		totals_hash = Hash.new(0)
+		self.hasharray.each { |x| totals_hash["#{x["Sale Date"]}"] += x[key].tr("$", "").to_f }
+		totals_hash
 	end
 
 	def sort_by!(key)
