@@ -2,6 +2,7 @@
 # parts of the application.
 require 'rubygems'
 require 'ramaze'
+require 'pry'
 
 # Make sure that Ramaze knows where you are
 Ramaze.options.roots = [__DIR__]
