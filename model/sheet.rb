@@ -11,14 +11,25 @@ class Sheet
 		self.hasharray.sort_by{ |row| row[key] }
 	end
 
-	def get_total(key)
-	end
-
 	# returns a hash with totals per day
 	def daily_totals(key)
-		totals_hash = Hash.new(0)
-		self.hasharray.each { |x| totals_hash["#{x["Sale Date"]}"] += x[key].tr("$", "").to_f }
-		totals_hash
+		totals = Hash.new(0)
+		self.hasharray.each { |x| totals["#{x["Sale Date"]}"] += x[key].tr("$", "").to_f }
+		totals
+	end
+
+	# TODO: find a better, more "ruby" way to do this. A nested each is usually the slowest method
+	# TODO: make it work at all
+	def daily_totals_by_item_name
+		totals = daily_totals("Item Total")
+		all_entries = Hash.new
+		totals.each do |date, total|
+			@this_days_entries  = self.hasharray.select { |x| x["Sale Date"] == date  }	
+			all_entries[date] = @this_days_entries
+		end
+		all_entries.each do |date, hash|
+			
+		end
 	end
 
 	def sort_by!(key)
