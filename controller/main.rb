@@ -32,6 +32,7 @@ class MainController < Controller
 			@sheet = Sheet.read(v.filename)
 			# "Item name" is "pricing option"
 			@sheet.sort_by_date_and!('Item name')
+			@sheet.daily_totals_by_item_name
 			@filenames << @sheet.filename
 			@sheet.save
 		end

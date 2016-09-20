@@ -4,6 +4,7 @@ require_relative 'file'
 
 class Sheet
 	attr_accessor :hasharray
+	attr_accessor :hasharray_with_daily_totals
 	attr_accessor :orig_filename
 	attr_accessor :filename
 
@@ -14,22 +15,31 @@ class Sheet
 	# returns a hash with totals per day
 	def daily_totals(key)
 		totals = Hash.new(0)
-		self.hasharray.each { |x| totals["#{x["Sale Date"]}"] += x[key].tr("$", "").to_f }
+		self.hasharray.each { |x| totals["#{x["Sale Date"]}"] += x[key].tr("$", "").tr(",", "").to_f; }
 		totals
 	end
 
 	# TODO: find a better, more "ruby" way to do this. A nested each is usually the slowest method
-	# TODO: make it work at all
 	def daily_totals_by_item_name
 		totals = daily_totals("Item Total")
-		all_entries = Hash.new
+		all_entries = Array.new
 		totals.each do |date, total|
-			@this_days_entries  = self.hasharray.select { |x| x["Sale Date"] == date  }	
-			all_entries[date] = @this_days_entries
+			#@this_days_entries  = self.hasharray.select { |x| x["Sale Date"] == date  }	
+			self.hasharray.select { |x| x["Sale Date"] == date  }.each do |entry|
+				all_entries << entry
+			end
+			#@this_days_entries.push({ :daily_total => total })
+			all_entries << { :text => "Daily total for #{date}", ":total" => "$#{total}",  }
 		end
-		all_entries.each do |date, hash|
-			
-		end
+	#TODO: totals per item name per day
+	#	all_entries.each do |date, hash|
+			#
+	#	end
+
+	#self.daily_totals("Item Total").each do |date, total|
+	#	all_entries[date] = { :total => "#{total}" }
+	#end
+	self.hasharray_with_daily_totals = all_entries
 	end
 
 	def sort_by!(key)
@@ -59,7 +69,7 @@ class Sheet
 	def csv
 		csv = String.new
 		csv << self.keys.to_csv
-		self.hasharray.each do |hasharray|
+		self.hasharray_with_daily_totals.each do |hasharray|
 			csv << hasharray.values.to_csv
 		end
 		csv
@@ -91,16 +101,17 @@ class Sheet
  	 return html
 	end
 
-	def self.hasharray_to_csv(hashArray)
-		column_names = hashArray.first.keys
-			output=CSV.generate do |csv|
-			csv << column_names
-			hashes.each do |x|
-				csv << x.values
-			end
-		end
-	 output	
-	end
+	# unused
+	#def self.hasharray_to_csv(hashArray)
+	#	column_names = hashArray.first.keys
+	#		output=CSV.generate do |csv|
+	#		csv << column_names
+	#		hashes.each do |x|
+	#			csv << x.values
+	#		end
+	#	end
+	# output	
+	#end
 
 	def save
 		File.open("#{File.save_path}#{self.filename}", 'w') { |file| file.write(self.csv) }
