@@ -24,21 +24,13 @@ class Sheet
 		totals = daily_totals("Item Total")
 		all_entries = Array.new
 		totals.each do |date, total|
-			#@this_days_entries  = self.hasharray.select { |x| x["Sale Date"] == date  }	
 			self.hasharray.select { |x| x["Sale Date"] == date  }.each do |entry|
 				all_entries << entry
 			end
-			#@this_days_entries.push({ :daily_total => total })
 			all_entries << { :text => "Daily total for #{date}", ":total" => "$#{total}",  }
 		end
 	#TODO: totals per item name per day
-	#	all_entries.each do |date, hash|
-			#
-	#	end
 
-	#self.daily_totals("Item Total").each do |date, total|
-	#	all_entries[date] = { :total => "#{total}" }
-	#end
 	self.hasharray_with_daily_totals = all_entries
 	end
 
@@ -49,8 +41,6 @@ class Sheet
 
 	def sort_by_date_and(key)
 		self.hasharray.sort{ |a, b| [DateTime.strptime(a["Sale Date"], '%m/%d/%Y'), b[key]] <=> [DateTime.strptime(b["Sale Date"], '%m/%d/%Y'), a[key]] }
-#		self.hasharray = self.sort_by(key)
-#		array = self.hasharray.sort_by{ |row| row["Sale Date"] }
 	end
 
 	def sort_by_date_and!(key)
@@ -100,18 +90,6 @@ class Sheet
  	 }
  	 return html
 	end
-
-	# unused
-	#def self.hasharray_to_csv(hashArray)
-	#	column_names = hashArray.first.keys
-	#		output=CSV.generate do |csv|
-	#		csv << column_names
-	#		hashes.each do |x|
-	#			csv << x.values
-	#		end
-	#	end
-	# output	
-	#end
 
 	def save
 		File.open("#{File.save_path}#{self.filename}", 'w') { |file| file.write(self.csv) }
